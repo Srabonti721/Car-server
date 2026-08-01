@@ -21,6 +21,11 @@ const client = new MongoClient(uri, {
  client.connect().catch(console.dir);
  const carCollection = client.db("carDb").collection("cars");
 
+app.get("/cars", async(req, res)=>{
+  const result = await carCollection.find().toArray();
+  res.send(result)
+})
+
  app.post("/cars", async(req, res)=>{
   const addCar = req.body;
   const result = await carCollection.insertOne(addCar);
